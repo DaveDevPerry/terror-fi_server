@@ -1,32 +1,32 @@
-const Song = require('../models/songModel');
+const Album = require('../models/albumModel');
 const mongoose = require('mongoose');
 
 // get all gigs
-const getSongs = async (req, res) => {
+const getAlbums = async (req, res) => {
 	const user_id = req.user._id;
 
 	// only finds gigs that match user_id
-	const songs = await Song.find({ user_id }).sort({ createdAt: -1 });
-	res.status(200).json(songs);
+	const albums = await Album.find({ user_id }).sort({ createdAt: -1 });
+	res.status(200).json(albums);
 };
 
 // get a single workout
-const getSong = async (req, res) => {
+const getAlbum = async (req, res) => {
 	const { id } = req.params;
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ error: 'No such song' });
+		return res.status(404).json({ error: 'No such album' });
 	}
-	const song = await Song.findById(id);
-	if (!song) {
-		return res.status(404).json({ error: 'No such song' });
+	const album = await Album.findById(id);
+	if (!album) {
+		return res.status(404).json({ error: 'No such album' });
 	}
-	res.status(200).json(song);
+	res.status(200).json(album);
 };
 
 // create new workout
-const createSong = async (req, res) => {
-	const { title, artistName, albumId, albumTitle, fileUrl, artworkUrl } =
+const createAlbum = async (req, res) => {
+	const { id, title, artistName, albumId, coverUrl, fileUrls, artworkUrls } =
 		req.body;
 	// console.log(gig, 'gig');
 	// const { title, title, reps } = req.body;
@@ -40,18 +40,18 @@ const createSong = async (req, res) => {
 	if (!title) {
 		emptyFields.push('title');
 	}
-	if (!albumTitle) {
-		emptyFields.push('albumTitle');
-	}
-	if (!fileUrl) {
-		emptyFields.push('fileUrl');
-	}
+	// if (!albumTitle) {
+	// 	emptyFields.push('albumTitle');
+	// }
+	// if (!fileUrl) {
+	// 	emptyFields.push('fileUrl');
+	// }
 	if (!artistName) {
 		emptyFields.push('artistName');
 	}
-	if (!artworkUrl) {
-		emptyFields.push('artworkUrl');
-	}
+	// if (!artworkUrl) {
+	// 	emptyFields.push('artworkUrl');
+	// }
 	if (emptyFields.length > 0) {
 		return res
 			.status(400)
@@ -62,17 +62,18 @@ const createSong = async (req, res) => {
 	try {
 		// user._id comes from middleware VITAL FOR gigs SPECIFIC TO A USER
 		const user_id = req.user._id;
-		const song = await Song.create({
+		const album = await Album.create({
+			id,
 			title,
 			artistName,
 			albumId,
-			albumTitle,
-			fileUrl,
-			artworkUrl,
+			coverUrl,
+			fileUrls,
+			artworkUrls,
 			user_id,
 		});
 		// gig.support_bands.push()
-		res.status(200).json(song);
+		res.status(200).json(album);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
@@ -114,9 +115,9 @@ const createSong = async (req, res) => {
 // };
 
 module.exports = {
-	getSongs,
-	getSong,
-	createSong,
+	getAlbums,
+	getAlbum,
+	createAlbum,
 	// deleteGig,
 	// updateGig,
 };
