@@ -5,9 +5,17 @@ const {
 	signupUser,
 	loginUser,
 	updateUser,
+	getUsers,
+	getUser,
 } = require('../controllers/userController');
 
 const router = express.Router();
+
+// get users
+router.get('/', getUsers);
+
+// get user
+router.get('/:id', getUser);
 
 // Login route
 router.post('/login', loginUser);

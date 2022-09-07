@@ -30,6 +30,9 @@ const userSchema = new Schema(
 				},
 			],
 		},
+		// first_name: {
+		// 	type: String,
+		// },
 	},
 	{ timestamps: true }
 );
