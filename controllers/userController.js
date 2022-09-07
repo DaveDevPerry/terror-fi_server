@@ -16,12 +16,33 @@ const loginUser = async (req, res) => {
 		// create a token
 		const token = createToken(user._id);
 
-		res.status(200).json({ email, token });
+		const username = user.username;
+		const favourites = user.favourites;
+		const userId = user._id;
+
+		res.status(200).json({ email, token, username, favourites, userId });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
 	// res.json({ msg: 'login user' });
 };
+
+// WORKING PRE FAVOURITES
+// // login user
+// const loginUser = async (req, res) => {
+// 	const { email, password } = req.body;
+// 	try {
+// 		// login() is the static method of user
+// 		const user = await User.login(email, password);
+// 		// create a token
+// 		const token = createToken(user._id);
+
+// 		res.status(200).json({ email, token });
+// 	} catch (error) {
+// 		res.status(400).json({ error: error.message });
+// 	}
+// 	// res.json({ msg: 'login user' });
+// };
 
 // signup user
 const signupUser = async (req, res) => {
