@@ -21,6 +21,15 @@ const userSchema = new Schema(
 			unique: true,
 			lowercase: true,
 		},
+		favourites: {
+			type: [
+				{
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Song',
+					required: false,
+				},
+			],
+		},
 	},
 	{ timestamps: true }
 );

@@ -4,7 +4,7 @@ const express = require('express');
 const {
 	signupUser,
 	loginUser,
-	// updateUser,
+	updateUser,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -17,5 +17,7 @@ router.post('/signup', signupUser);
 
 // UPDATE a user
 // router.patch('/:id', updateUser);
+// UPDATE a user
+router.patch('/:id', updateUser);
 
 module.exports = router;
