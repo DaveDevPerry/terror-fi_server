@@ -30,6 +30,15 @@ const userSchema = new Schema(
 				},
 			],
 		},
+		playlists: {
+			type: [
+				{
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Playlist',
+					required: false,
+				},
+			],
+		},
 		// first_name: {
 		// 	type: String,
 		// },

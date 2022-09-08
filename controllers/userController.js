@@ -19,9 +19,12 @@ const loginUser = async (req, res) => {
 
 		const username = user.username;
 		const favourites = user.favourites;
+		const playlists = user.playlists;
 		const userId = user._id;
 
-		res.status(200).json({ email, token, username, favourites, userId });
+		res
+			.status(200)
+			.json({ email, token, username, favourites, playlists, userId });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
