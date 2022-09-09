@@ -91,6 +91,7 @@ const createPlaylist = async (req, res) => {
 const updatePlaylist = async (req, res) => {
 	const { id } = req.params;
 	const { songId } = req.body;
+	console.log(songId, 'songId');
 	// const favs = { ...req.body };
 	// console.log(favs, 'fav');
 	console.log(id, 'id');
