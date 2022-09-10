@@ -13,11 +13,14 @@ const getPlaylists = async (req, res) => {
 // get a single workout
 const getPlaylist = async (req, res) => {
 	const { id } = req.params;
+	console.log('here');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: 'No such playlist' });
 	}
-	const playlist = await Playlist.findById(id);
+	const playlist = await Playlist.findById(id).populate({
+		path: 'songs',
+	});
 	if (!playlist) {
 		return res.status(404).json({ error: 'No such playlist' });
 	}
