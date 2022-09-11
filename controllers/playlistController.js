@@ -30,7 +30,7 @@ const getPlaylist = async (req, res) => {
 // create new workout
 const createPlaylist = async (req, res) => {
 	const { name, songs } = req.body;
-	// console.log(gig, 'gig');
+	console.log(name, 'name');
 	// const { title, title, reps } = req.body;
 
 	// handles ui error message if not all fields are complete
