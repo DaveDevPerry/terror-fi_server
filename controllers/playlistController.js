@@ -77,18 +77,19 @@ const createPlaylist = async (req, res) => {
 };
 
 // delete a workout
-// const deleteGig = async (req, res) => {
-// 	const { id } = req.params;
-// 	// check if id exists
-// 	if (!mongoose.Types.ObjectId.isValid(id)) {
-// 		return res.status(404).json({ error: 'No such gig' });
-// 	}
-// 	const gig = await Gig.findOneAndDelete({ _id: id });
-// 	if (!gig) {
-// 		return res.status(404).json({ error: 'No such gig' });
-// 	}
-// 	res.status(200).json(gig);
-// };
+const deletePlaylist = async (req, res) => {
+	const { id } = req.params;
+	console.log(id, 'id backend');
+	// check if id exists
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(404).json({ error: 'No such playlist' });
+	}
+	const playlist = await Playlist.findOneAndDelete({ _id: id });
+	if (!playlist) {
+		return res.status(404).json({ error: 'No such playlist' });
+	}
+	res.status(200).json(playlist);
+};
 
 // update a playlist
 const updatePlaylist = async (req, res) => {
@@ -125,6 +126,6 @@ module.exports = {
 	getPlaylists,
 	getPlaylist,
 	createPlaylist,
-	// deleteGig,
+	deletePlaylist,
 	updatePlaylist,
 };

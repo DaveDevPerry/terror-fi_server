@@ -3,7 +3,7 @@ const {
 	getPlaylists,
 	getPlaylist,
 	createPlaylist,
-	// deleteGig,
+	deletePlaylist,
 	updatePlaylist,
 } = require('../controllers/playlistController');
 const requireAuth = require('../middleware/requireAuth');
@@ -24,7 +24,7 @@ router.get('/:id', getPlaylist);
 // POST a new workout
 router.post('/', createPlaylist);
 // DELETE a workout
-// router.delete('/:id', deleteGig);
+router.delete('/:id', deletePlaylist);
 // UPDATE a new workout
 router.patch('/:id', updatePlaylist);
 
