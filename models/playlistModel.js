@@ -32,14 +32,13 @@ const playlistSchema = new Schema(
 	{ timestamps: true }
 );
 
-playlistSchema.pre('save', async function (next) {
-	console.log(User, 'User in pre save');
-	console.log(next, 'next in pre save');
-	console.log(this, 'this in pre save');
+playlistSchema.post('save', async function (next) {
 	try {
-		// if (!this.isModified('password')) {
-		// 	return next();
-		// }
+		const user = await User.findByIdAndUpdate(
+			{ _id: this.user_id },
+			{ $push: { playlists: this._id } }
+		);
+		// console.log(user, 'User in pre save');
 
 		return next();
 	} catch (err) {

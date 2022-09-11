@@ -1,4 +1,5 @@
 const Playlist = require('../models/playlistModel');
+const User = require('../models/userModel');
 const mongoose = require('mongoose');
 
 // get all gigs
@@ -79,12 +80,22 @@ const createPlaylist = async (req, res) => {
 // delete a workout
 const deletePlaylist = async (req, res) => {
 	const { id } = req.params;
-	console.log(id, 'id backend');
+	// console.log(id, 'id backend');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: 'No such playlist' });
 	}
+	const plUserId = await Playlist.findById({ _id: id });
+	// console.log(plUserId, 'plUserId');
+	// console.log(plUserId.user_id, 'plUserId');
+	const userId = await plUserId.user_id;
+	// console.log(plUserId[0].user_id, 'plUserId');
 	const playlist = await Playlist.findOneAndDelete({ _id: id });
+	const user = await User.findByIdAndUpdate(
+		{ _id: userId },
+		{ $pull: { playlists: { $in: id } } }
+	);
+	// console.log(user, 'user updated in playlist controller?');
 	if (!playlist) {
 		return res.status(404).json({ error: 'No such playlist' });
 	}
@@ -95,10 +106,10 @@ const deletePlaylist = async (req, res) => {
 const updatePlaylist = async (req, res) => {
 	const { id } = req.params;
 	const { songId } = req.body;
-	console.log(songId, 'songId');
+	// console.log(songId, 'songId');
 	// const favs = { ...req.body };
 	// console.log(favs, 'fav');
-	console.log(id, 'id');
+	// console.log(id, 'id');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: 'No such user' });

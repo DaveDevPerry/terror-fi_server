@@ -78,6 +78,33 @@ userSchema.statics.signup = async function (email, password, username) {
 	return user;
 };
 
+userSchema.pre('save', async function (next) {
+	// const user = await User.findByIdAndUpdate({_id: this.user_id},
+	// 	{...user, $push: { playlists: this._id }}
+	// 	)
+	console.log(this, 'this in pre save user');
+	try {
+		// console.log(User, 'User in pre save');
+		// console.log(next, 'next in pre save');
+		console.log(this, 'this in pre save user 1');
+		// const user = await User.findByIdAndUpdate(
+		// 	{ _id: this.user_id },
+		// 	{ $push: { playlists: this._id } }
+		// 	// { ...user, $push: { playlists: this._id } }
+		// );
+
+		// console.log(user, 'User in pre save');
+		// console.log(...user, 'User in pre save');
+		// if (!this.isModified('password')) {
+		// 	return next();
+		// }
+
+		return next();
+	} catch (err) {
+		return next(err);
+	}
+});
+
 // static login method
 userSchema.statics.login = async function (email, password) {
 	console.log(email, 'email login');
