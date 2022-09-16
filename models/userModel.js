@@ -39,6 +39,16 @@ const userSchema = new Schema(
 				},
 			],
 		},
+		defaultAnimation: {
+			type: String,
+			default: 'display-default',
+			required: true,
+		},
+		defaultView: {
+			type: String,
+			default: 'tracklist',
+			required: true,
+		},
 		// first_name: {
 		// 	type: String,
 		// },

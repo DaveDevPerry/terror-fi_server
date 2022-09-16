@@ -21,10 +21,21 @@ const loginUser = async (req, res) => {
 		const favourites = user.favourites;
 		const playlists = user.playlists;
 		const userId = user._id;
+		const defaultAnimation = user.defaultAnimation;
+		const defaultView = user.defaultView;
 
 		res
 			.status(200)
-			.json({ email, token, username, favourites, playlists, userId });
+			.json({
+				email,
+				token,
+				username,
+				favourites,
+				playlists,
+				userId,
+				defaultAnimation,
+				defaultView,
+			});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
