@@ -95,6 +95,35 @@ const getUser = async (req, res) => {
 };
 
 // update a user
+// const updateUser = async (req, res) => {
+// 	const { id } = req.params;
+// 	const { clonedFavs } = req.body;
+// 	// const favs = { ...req.body };
+// 	// console.log(favs, 'fav');
+// 	// console.log(id, 'id');
+// 	// check if id exists
+// 	if (!mongoose.Types.ObjectId.isValid(id)) {
+// 		return res.status(404).json({ error: 'No such user' });
+// 	}
+// 	const user = await User.findByIdAndUpdate(
+// 		{ _id: id },
+// 		{ favourites: clonedFavs },
+// 		// second object contains data to update
+// 		{
+// 			// gets all properties in body
+// 			// ...req.body,
+// 			// favourites: req.body.favourites.push(songId),
+// 			// favourites: ...favourites,songId,
+// 			// ...req.body,
+// 			// first_name: first_name,
+// 		}
+// 	);
+// 	if (!user) {
+// 		return res.status(404).json({ error: 'No such user' });
+// 	}
+// 	console.log('here', user);
+// 	res.status(200).json(user);
+// };
 const updateUser = async (req, res) => {
 	const { id } = req.params;
 	const { songId } = req.body;

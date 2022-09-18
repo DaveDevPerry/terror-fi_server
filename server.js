@@ -10,6 +10,7 @@ const userRoutes = require('./routes/user');
 const songRoutes = require('./routes/songs');
 const albumRoutes = require('./routes/albums');
 const playlistRoutes = require('./routes/playlists');
+const favouritesRoutes = require('./routes/favourites');
 
 app.use(cors());
 
@@ -25,6 +26,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/songs', songRoutes);
 app.use('/api/albums', albumRoutes);
 app.use('/api/playlists', playlistRoutes);
+app.use('/api/favourites', favouritesRoutes);
 
 // connect to db
 mongoose
