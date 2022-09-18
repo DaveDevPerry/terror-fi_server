@@ -22,14 +22,19 @@ const userSchema = new Schema(
 			lowercase: true,
 		},
 		favourites: {
-			type: [
-				{
-					type: mongoose.Schema.Types.ObjectId,
-					ref: 'Song',
-					required: false,
-				},
-			],
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Favourites',
+			required: false,
 		},
+		// favourites: {
+		// 	type: [
+		// 		{
+		// 			type: mongoose.Schema.Types.ObjectId,
+		// 			ref: 'Song',
+		// 			required: false,
+		// 		},
+		// 	],
+		// },
 		playlists: {
 			type: [
 				{
