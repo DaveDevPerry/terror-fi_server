@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // get all gigs
 const getPlaylists = async (req, res) => {
 	const user_id = req.user._id;
-
+	console.log('here');
 	// only finds gigs that match user_id
 	const playlists = await Playlist.find({ user_id }).sort({ createdAt: -1 });
 	res.status(200).json(playlists);

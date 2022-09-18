@@ -24,18 +24,17 @@ const loginUser = async (req, res) => {
 		const defaultAnimation = user.defaultAnimation;
 		const defaultView = user.defaultView;
 
-		res
-			.status(200)
-			.json({
-				email,
-				token,
-				username,
-				favourites,
-				playlists,
-				userId,
-				defaultAnimation,
-				defaultView,
-			});
+		console.log(user, 'loginUser backend');
+		res.status(200).json({
+			email,
+			token,
+			username,
+			favourites,
+			playlists,
+			userId,
+			defaultAnimation,
+			defaultView,
+		});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
