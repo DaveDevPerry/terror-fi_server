@@ -136,6 +136,6 @@ module.exports = {
 	getFavourites,
 	// getPlaylist,
 	createFavourites,
-	deleteFavourites,
+	// deleteFavourites,
 	updateFavourites,
 };

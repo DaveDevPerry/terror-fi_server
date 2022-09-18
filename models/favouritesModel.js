@@ -13,6 +13,7 @@ const favouritesSchema = new Schema(
 					required: false,
 				},
 			],
+			required: true,
 		},
 		user_id: {
 			type: String,
