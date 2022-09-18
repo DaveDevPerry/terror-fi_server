@@ -3,12 +3,19 @@ const mongoose = require('mongoose');
 
 // get all gigs
 const getAlbums = async (req, res) => {
-	const user_id = req.user._id;
+	// const user_id = req.user._id;
 
 	// only finds gigs that match user_id
-	const albums = await Album.find({ user_id }).sort({ createdAt: -1 });
+	const albums = await Album.find({}).sort({ createdAt: -1 });
 	res.status(200).json(albums);
 };
+// const getAlbums = async (req, res) => {
+// 	const user_id = req.user._id;
+
+// 	// only finds gigs that match user_id
+// 	const albums = await Album.find({ user_id }).sort({ createdAt: -1 });
+// 	res.status(200).json(albums);
+// };
 
 // get a single workout
 const getAlbum = async (req, res) => {

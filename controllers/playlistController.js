@@ -5,16 +5,20 @@ const mongoose = require('mongoose');
 // get all gigs
 const getPlaylists = async (req, res) => {
 	const user_id = req.user._id;
-	console.log('here');
+	console.log('get playlists');
 	// only finds gigs that match user_id
-	const playlists = await Playlist.find({ user_id }).sort({ createdAt: -1 });
+	const playlists = await Playlist.find({ user_id })
+		.sort({ createdAt: -1 })
+		.populate({
+			path: 'songs',
+		});
 	res.status(200).json(playlists);
 };
 
 // get a single workout
 const getPlaylist = async (req, res) => {
 	const { id } = req.params;
-	console.log('here');
+	console.log('get playlist');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: 'No such playlist' });
@@ -27,6 +31,21 @@ const getPlaylist = async (req, res) => {
 	}
 	res.status(200).json(playlist);
 };
+// const getPlaylist = async (req, res) => {
+// 	const { id } = req.params;
+// 	console.log('get playlist');
+// 	// check if id exists
+// 	if (!mongoose.Types.ObjectId.isValid(id)) {
+// 		return res.status(404).json({ error: 'No such playlist' });
+// 	}
+// 	const playlist = await Playlist.findById(id).populate({
+// 		path: 'songs',
+// 	});
+// 	if (!playlist) {
+// 		return res.status(404).json({ error: 'No such playlist' });
+// 	}
+// 	res.status(200).json(playlist);
+// };
 
 // create new workout
 const createPlaylist = async (req, res) => {

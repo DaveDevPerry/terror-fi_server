@@ -5,28 +5,13 @@ const mongoose = require('mongoose');
 // get all gigs
 const getFavourites = async (req, res) => {
 	const user_id = req.user._id;
-	console.log('here');
+	console.log('here in get favourites');
 	// only finds gigs that match user_id
-	const favourites = await Favourites.find({ user_id });
+	const favourites = await Favourites.find({ user_id }).populate({
+		path: 'songs',
+	});
 	res.status(200).json(favourites);
 };
-
-// get a single workout
-// const getPlaylist = async (req, res) => {
-// 	const { id } = req.params;
-// 	console.log('here');
-// 	// check if id exists
-// 	if (!mongoose.Types.ObjectId.isValid(id)) {
-// 		return res.status(404).json({ error: 'No such playlist' });
-// 	}
-// 	const playlist = await Playlist.findById(id).populate({
-// 		path: 'songs',
-// 	});
-// 	if (!playlist) {
-// 		return res.status(404).json({ error: 'No such playlist' });
-// 	}
-// 	res.status(200).json(playlist);
-// };
 
 // create new workout
 const createFavourites = async (req, res) => {
@@ -105,7 +90,7 @@ const createFavourites = async (req, res) => {
 const updateFavourites = async (req, res) => {
 	const { id } = req.params;
 	const { songId } = req.body;
-	// console.log(songId, 'songId');
+	console.log(songId, 'songId update favs');
 	// const favs = { ...req.body };
 	// console.log(favs, 'fav');
 	// console.log(id, 'id');
@@ -115,7 +100,8 @@ const updateFavourites = async (req, res) => {
 	}
 	const favourites = await Favourites.findByIdAndUpdate(
 		{ _id: id },
-		{ ...req.body, $push: { songs: songId } }
+		{ $push: { songs: songId } }
+		// { ...req.body, $push: { songs: songId } }
 		// second object contains data to update
 		// {
 		// gets all properties in body
