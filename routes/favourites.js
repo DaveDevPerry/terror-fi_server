@@ -2,7 +2,7 @@ const express = require('express');
 const {
 	getFavourites,
 	// getPlaylist,
-	createFavourites,
+	// createFavourites,
 	// deletePlaylist,
 	updateFavourites,
 } = require('../controllers/favouritesController');
@@ -22,7 +22,7 @@ router.get('/', getFavourites);
 // router.get('/:id', getPlaylist);
 
 // POST a new workout
-router.post('/', createFavourites);
+// router.post('/', createFavourites);
 // DELETE a workout
 // router.delete('/:id', deletePlaylist);
 // UPDATE a new workout
