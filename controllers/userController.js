@@ -13,6 +13,9 @@ const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 	try {
 		// login() is the static method of user
+		// const user = await User.login(email, password).populate({
+		// 	path: 'playlists',
+		// });
 		const user = await User.login(email, password);
 		// create a token
 		const token = createToken(user._id);

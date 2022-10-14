@@ -13,7 +13,6 @@ const playlistRoutes = require('./routes/playlists');
 const favouritesRoutes = require('./routes/favourites');
 
 app.use(cors());
-
 // middleware
 app.use(express.json());
 app.use((req, res, next) => {
@@ -42,3 +41,4 @@ mongoose
 	.catch((error) => {
 		console.log(error);
 	});
+

@@ -32,17 +32,39 @@ const playlistSchema = new Schema(
 	{ timestamps: true }
 );
 
-playlistSchema.post('save', async function (next) {
-	try {
-		const user = await User.findByIdAndUpdate(
-			{ _id: this.user_id },
-			{ $push: { playlists: this._id } }
-		);
-		// console.log(user, 'User in pre save');
+// playlistSchema.post('save', async function (next) {
+// 	try {
+// 		const user = await User.findByIdAndUpdate(
+// 			{ _id: this.user_id },
+// 			{ $push: { playlists: this._id } }
+// 		);
+// 		// console.log(user, 'User in pre save');
 
-		return next();
-	} catch (err) {
-		return next(err);
+// 		return next();
+// 	} catch (err) {
+// 		return next(err);
+// 	}
+// });
+
+playlistSchema.post('save', async function (doc, next) {
+	try {
+		let data = await doc;
+		console.log(data, 'doc in post weight');
+
+		const currentUser = await User.findById(data.user_id);
+
+		const user = await User.findByIdAndUpdate(
+			{ _id: currentUser._id },
+			{ $push: { playlists: data._id } }
+		);
+
+		console.log(user, 'updated user with weight id?');
+		// let data = await doc
+		//   .model("User")
+		//   .finOneAndUpdate({ _id: doc._id }, { exampleIDField: "some ID you want to pass" });
+	} catch (error) {
+		console.log('get -> error', error);
+		next(error);
 	}
 });
 

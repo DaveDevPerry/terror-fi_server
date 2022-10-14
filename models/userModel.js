@@ -129,7 +129,21 @@ userSchema.statics.login = async function (email, password) {
 	}
 
 	// "this" - refers to User
-	const user = await this.findOne({ email });
+	const user = await this.findOne({ email }).populate([
+		{
+			path: 'playlists',
+			populate: [
+				{
+					path: 'songs',
+					model: 'Song',
+				},
+			],
+		},
+	]);
+
+	// const user = await this.findOne({ email }).populate({
+	// 	path: 'playlists',
+	// });
 	// does user exist
 	if (!user) {
 		throw Error('incorrect email');

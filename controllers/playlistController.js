@@ -54,14 +54,14 @@ const createPlaylist = async (req, res) => {
 	// const { title, title, reps } = req.body;
 
 	// handles ui error message if not all fields are complete
-	const emptyFields = [];
+	// const emptyFields = [];
 
 	// if (!title) {
 	// 	emptyFields.push('title');
 	// }
-	if (!name) {
-		emptyFields.push('name');
-	}
+	// if (!name) {
+	// 	emptyFields.push('name');
+	// }
 	// if (!albumTitle) {
 	// 	emptyFields.push('albumTitle');
 	// }
@@ -74,11 +74,11 @@ const createPlaylist = async (req, res) => {
 	// if (!artworkUrl) {
 	// 	emptyFields.push('artworkUrl');
 	// }
-	if (emptyFields.length > 0) {
-		return res
-			.status(400)
-			.json({ error: 'Please fill in all the fields', emptyFields });
-	}
+	// if (emptyFields.length > 0) {
+	// 	return res
+	// 		.status(400)
+	// 		.json({ error: 'Please fill in all the fields', emptyFields });
+	// }
 
 	// add doc to db
 	try {
@@ -124,31 +124,42 @@ const deletePlaylist = async (req, res) => {
 // update a playlist
 const updatePlaylist = async (req, res) => {
 	const { id } = req.params;
-	const { songId } = req.body;
+	const { plData } = req.body;
+	// const { songId } = req.body;
+	console.log(plData, 'pldata controller');
 	// console.log(songId, 'songId');
 	// const favs = { ...req.body };
 	// console.log(favs, 'fav');
-	// console.log(id, 'id');
+	console.log(id, 'id');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: 'No such user' });
 	}
 	const playlist = await Playlist.findByIdAndUpdate(
-		{ _id: id },
-		{ ...req.body, $push: { songs: songId } }
-		// second object contains data to update
-		// {
-		// gets all properties in body
-		// ...req.body,
-		// favourites: req.body.favourites.push(songId),
-		// favourites: ...favourites,songId,
-		// ...req.body,
-		// first_name: first_name,
-		// }
+		{ _id: plData.plID },
+		{ ...req.body, $addToSet: { songs: plData.sID } }
+		// { ...req.body, $push: { songs: plData.sID } }
 	);
 	if (!playlist) {
 		return res.status(404).json({ error: 'No such playlist' });
 	}
+	// const playlist = await Playlist.findByIdAndUpdate(
+	// 	{ _id: id },
+	// 	{ ...req.body, $push: { songs: songId } }
+	// 	// second object contains data to update
+	// 	// {
+	// 	// gets all properties in body
+	// 	// ...req.body,
+	// 	// favourites: req.body.favourites.push(songId),
+	// 	// favourites: ...favourites,songId,
+	// 	// ...req.body,
+	// 	// first_name: first_name,
+	// 	// }
+	// );
+	// if (!playlist) {
+	// 	return res.status(404).json({ error: 'No such playlist' });
+	// }
+	console.log(playlist, 'playlist after update in controller');
 	res.status(200).json(playlist);
 };
 
