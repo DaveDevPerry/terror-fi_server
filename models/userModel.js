@@ -35,6 +35,15 @@ const userSchema = new Schema(
 		// 		},
 		// 	],
 		// },
+		// favourites: {
+		// 	type: [
+		// 		{
+		// 			type: mongoose.Schema.Types.ObjectId,
+		// 			ref: 'Song',
+		// 			required: false,
+		// 		},
+		// 	],
+		// },
 		playlists: {
 			type: [
 				{
