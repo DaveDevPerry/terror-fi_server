@@ -88,35 +88,51 @@ const createFavourites = async (req, res) => {
 
 // update a playlist
 const updateFavourites = async (req, res) => {
-	const { id } = req.params;
-	const { songId } = req.body;
-	console.log(songId, 'songId update favs');
-	// const favs = { ...req.body };
-	// console.log(favs, 'fav');
-	// console.log(id, 'id');
+	// const { id } = req.params;
+	const { favouriteDataUpdate } = req.body;
+	console.log(favouriteDataUpdate, 'favouriteDataUpdate update favs');
 	// check if id exists
-	if (!mongoose.Types.ObjectId.isValid(id)) {
+	if (!mongoose.Types.ObjectId.isValid(favouriteDataUpdate.favouriteID)) {
 		return res.status(404).json({ error: 'No such user' });
 	}
-	const favourites = await Favourites.findByIdAndUpdate(
-		{ _id: id },
-		{ $push: { songs: songId } }
-		// { ...req.body, $push: { songs: songId } }
-		// second object contains data to update
-		// {
-		// gets all properties in body
-		// ...req.body,
-		// favourites: req.body.favourites.push(songId),
-		// favourites: ...favourites,songId,
-		// ...req.body,
-		// first_name: first_name,
-		// }
-	);
+	let favourites;
+	if (favouriteDataUpdate.isAddFavourite === true) {
+		favourites = await Favourites.findByIdAndUpdate(
+			{ _id: favouriteDataUpdate.favouriteID },
+			{ $addToSet: { songs: favouriteDataUpdate.songID } }
+		);
+	}
+	if (favouriteDataUpdate.isAddFavourite === false) {
+		favourites = await Favourites.findByIdAndUpdate(
+			{ _id: favouriteDataUpdate.favouriteID },
+			{ $pull: { songs: favouriteDataUpdate.songID } }
+			// $pull: { "StudentHobby": "Cooking"}})
+		);
+	}
 	if (!favourites) {
 		return res.status(404).json({ error: 'No such favourites' });
 	}
 	res.status(200).json(favourites);
 };
+// // update a playlist
+// const updateFavourites = async (req, res) => {
+// 	const { id } = req.params;
+// 	const { songId } = req.body;
+// 	console.log(songId, 'songId update favs');
+// 	// check if id exists
+// 	if (!mongoose.Types.ObjectId.isValid(id)) {
+// 		return res.status(404).json({ error: 'No such user' });
+// 	}
+// 	const favourites = await Favourites.findByIdAndUpdate(
+// 		{ _id: id },
+// 		{ $push: { songs: songId } }
+
+// 	);
+// 	if (!favourites) {
+// 		return res.status(404).json({ error: 'No such favourites' });
+// 	}
+// 	res.status(200).json(favourites);
+// };
 
 module.exports = {
 	getFavourites,
